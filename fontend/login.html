@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- BACK LINK -->
+  <div class="top-nav">
+    <a href="index.html">← Home</a>
+  </div>
+
+
+  <div class="container login-box">
+
+    <h1>Welcome Back</h1>
+
+    <p>
+      เข้าสู่ระบบเพื่อใช้งาน
+    </p>
+
+
+    <form id="loginForm">
+
+      <input 
+        id="email" 
+        type="email" 
+        placeholder="Email"
+        required
+      />
+
+
+      <input 
+        id="password" 
+        type="password" 
+        placeholder="Password"
+        required
+      />
+
+
+      <button type="submit">
+        Login
+      </button>
+
+    </form>
+
+
+    <p class="small-text">
+      ยังไม่มีบัญชี?
+      <a href="register.html">
+        สมัครสมาชิก
+      </a>
+    </p>
+
+
+  </div>
+
+
+
+  <script type="module">
+
+    import { login } from "./js/api.js";
+
+
+    const form =
+      document.getElementById("loginForm");
+
+
+
+    form.addEventListener(
+      "submit",
+      async (event) => {
+
+        event.preventDefault();
+
+
+        const email =
+          document.getElementById("email").value;
+
+
+        const password =
+          document.getElementById("password").value;
+
+
+
+        try {
+
+          const res =
+            await login({
+              email,
+              password
+            });
+
+
+
+          if (res.token) {
+
+            localStorage.setItem(
+              "token",
+              res.token
+            );
+
+
+            window.location.href =
+              "index.html";
+
+
+          } else {
+
+            alert(res.message);
+
+          }
+
+
+        } catch(err) {
+
+          console.error(err);
+
+          alert("เกิดข้อผิดพลาดในการเข้าสู่ระบบ");
+
+        }
+
+      }
+    );
+
+
+  </script>
+
+
+</body>
+</html>

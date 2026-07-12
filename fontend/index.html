@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ไทยช่วยไทย 60:40</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <div class="top-nav">
+      <a href="login.html" id="authLink">Login</a>
+    </div>
+
+    <div class="container">
+      <h1>🇹🇭 ไทยช่วยไทย 60:40</h1>
+
+      <p class="subtitle">กรอกราคาสินค้าเพื่อคำนวณจำนวนเงินที่ต้องจ่าย</p>
+      <div class="dashboard">
+        <!-- ซ้าย -->
+        <div class="left-panel">
+          <form id="calculateForm">
+            <input
+              type="number"
+              id="price"
+              placeholder="เช่น 100"
+              min="1"
+              step="0.01"
+              required
+            />
+
+            <button type="submit">คำนวณ</button>
+          </form>
+
+          <div id="result"></div>
+        </div>
+
+        <!-- ขวา -->
+        <div class="right-panel">
+          <div class="summary-card">
+            <div class="icon">📅</div>
+
+            <div>
+              <h3>รัฐช่วยวันนี้<</h3>
+
+              <h2 id="todayUsed">0 / 200 บาท</h2>
+            </div>
+          </div>
+
+          <div class="summary-card">
+            <div class="icon">📆</div>
+
+            <div>
+              <h3>รัฐช่วยเดือนนี้</h3>
+
+              <h2 id="monthUsed">0 / 1000 บาท</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { createUsage } from "./js/api.js";
+      import { loadDashboard } from "./js/dashboard.js";
+
+      const form = document.getElementById("calculateForm");
+
+      const result = document.getElementById("result");
+
+      const token = localStorage.getItem("token");
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const price = Number(document.getElementById("price").value);
+
+        if (price <= 0 || isNaN(price)) {
+          result.innerHTML = `
+      <div class="card error">
+        <p>⚠️ กรุณากรอกราคาสินค้าให้ถูกต้อง</p>
+      </div>
+    `;
+
+          return;
+        }
+
+        const government = (price * 0.6).toFixed(2);
+
+        const user = (price * 0.4).toFixed(2);
+
+        result.innerHTML = `
+
+  <div class="card">
+
+    <h3>
+    ผลการคำนวณ
+    </h3>
+
+
+    <p>
+    💰 ราคาสินค้า
+    <strong>${price.toFixed(2)}</strong>
+    บาท
+    </p>
+
+
+    <p>
+    🏛️ รัฐช่วยจ่าย
+    <strong>${government}</strong>
+    บาท
+    </p>
+
+
+    <p>
+    🙋 คุณจ่าย
+    <strong>${user}</strong>
+    บาท
+    </p>
+
+
+    ${
+      token
+        ? `
+      <button id="saveBtn">
+      💾 บันทึกข้อมูล
+      </button>
+      `
+        : `
+      <p>
+      🔒 Login เพื่อบันทึกข้อมูล
+      </p>
+      `
+    }
+
+
+  </div>
+
+  `;
+
+        // ถ้า Login แล้วให้บันทึกได้
+
+        if (token) {
+          document
+            .getElementById("saveBtn")
+            .addEventListener("click", async () => {
+              try {
+                const data = await createUsage(price);
+
+                console.log(data);
+
+                alert("บันทึกข้อมูลสำเร็จ");
+              } catch (error) {
+                console.error(error);
+
+                alert("บันทึกไม่สำเร็จ");
+              }
+              await loadDashboard();
+            });
+        }
+      });
+    </script>
+
+    <script type="module" src="./js/auth.js"></script>
+    <script type="module" src="./js/dashboard.js"></script>
+  </body>
+</html>
