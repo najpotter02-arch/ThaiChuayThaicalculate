@@ -32,7 +32,37 @@ border:1px solid rgba(255,255,255,.25);
 backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
 box-shadow:0 25px 60px rgba(0,0,0,.25),inset 0 1px 1px rgba(255,255,255,.35)}
 .container:before{content:"";position:absolute;width:340px;height:340px;left:-150px;top:-150px;border-radius:50%;background:rgba(255,255,255,.18);filter:blur(80px)}
-h1,h2,h3{color:#fff}
+h1,
+h2,
+h3,
+h4{
+    color:#fff;
+    margin:0;
+}
+
+
+h1{
+    font-size:32px;
+    font-weight:700;
+}
+
+
+h2{
+    font-size:22px;
+    font-weight:700;
+}
+
+
+h3{
+    font-size:16px;
+    font-weight:600;
+}
+
+
+h4{
+    font-size:20px;
+    font-weight:700;
+}
 .subtitle,p{color:rgba(255,255,255,.82)}
 .dashboard{display:grid;grid-template-columns:2fr 1fr;gap:30px}
 .left-panel,.right-panel{display:flex;flex-direction:column}
@@ -81,4 +111,855 @@ input {
   display: block;
   width: 100%;
   margin-bottom: 16px;
+}
+/* =====================================================
+   TODAY / MONTH DASHBOARD
+===================================================== */
+
+.dashboard-page{
+    max-width:1100px;
+    margin:auto;
+}
+
+.page-title{
+    margin-bottom:25px;
+}
+
+.page-title h1{
+    font-size:2.4rem;
+    font-weight:700;
+    color:#fff;
+    margin-bottom:8px;
+}
+
+.page-title p{
+    color:rgba(255,255,255,.75);
+    font-size:15px;
+}
+
+/* =====================================================
+   SUMMARY CARD
+===================================================== */
+
+.today-summary{
+
+    display:block;
+
+    padding:32px;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.today-summary::before{
+
+    content:"";
+
+    position:absolute;
+
+    right:-80px;
+
+    top:-80px;
+
+    width:220px;
+
+    height:220px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.08);
+
+    filter:blur(40px);
+
+}
+
+.summary-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+}
+
+.summary-header h2{
+
+    font-size:1.5rem;
+
+    color:white;
+
+}
+
+#percentUsed{
+
+    padding:8px 18px;
+
+    border-radius:30px;
+
+    background:rgba(0,255,200,.18);
+
+    border:1px solid rgba(0,255,200,.3);
+
+    color:white;
+
+    font-weight:700;
+
+    backdrop-filter:blur(20px);
+
+}
+
+/* =====================================================
+   MONEY
+===================================================== */
+
+#todayUsed{
+
+    color:white;
+
+    font-weight:800;
+
+    margin-bottom:10px;
+
+}
+
+.today-summary p{
+
+    color:rgba(255,255,255,.8);
+
+    font-size:16px;
+
+}
+
+#todayRemain{
+
+    color:#7dd3fc;
+
+}
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+.progress{
+
+    width:100%;
+
+    height:14px;
+
+    margin-top:25px;
+
+    background:rgba(255,255,255,.12);
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+}
+
+.progress-fill{
+
+    width:0;
+
+    height:100%;
+
+    border-radius:30px;
+
+    background:linear-gradient(
+        90deg,
+        #22d3ee,
+        #3b82f6
+    );
+
+    box-shadow:
+        0 0 18px rgba(34,211,238,.5);
+
+    transition:.8s;
+
+}
+
+/* =====================================================
+   HISTORY
+===================================================== */
+
+.chart-card{
+
+    margin-top:30px;
+
+}
+
+.card-title{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+
+}
+
+.card-title h2{
+
+    color:white;
+
+}
+
+#refreshBtn{
+
+    width:auto;
+
+    margin:0;
+
+    padding:10px 18px;
+
+    border-radius:14px;
+
+}
+
+/* =====================================================
+   LIST
+===================================================== */
+
+#todayList{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+.history-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:20px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.08);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    backdrop-filter:blur(20px);
+
+    transition:.3s;
+
+}
+
+.history-item:hover{
+
+    background:rgba(255,255,255,.15);
+
+    transform:translateY(-4px);
+
+}
+
+.history-left{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:6px;
+
+}
+
+.history-left strong{
+
+    color:white;
+
+    font-size:17px;
+
+}
+
+.history-left p{
+
+    color:rgba(255,255,255,.75);
+
+}
+
+.history-right{
+
+    text-align:right;
+
+}
+
+.history-right h3{
+
+    color:#7dd3fc;
+
+    margin-bottom:6px;
+
+}
+
+.history-right p{
+
+    color:rgba(255,255,255,.8);
+
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:768px){
+
+.summary-header{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:15px;
+
+}
+
+#todayUsed{
+
+    font-size:2.8rem;
+
+}
+
+.card-title{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:15px;
+
+}
+
+.history-item{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:15px;
+
+}
+
+.history-right{
+
+    text-align:left;
+
+}
+
+}
+/* =====================================================
+   MONTH DASHBOARD FIX
+===================================================== */
+
+
+/* เดือน */
+
+#monthDate{
+
+    color:rgba(255,255,255,.75);
+
+    font-size:16px;
+
+}
+
+.today-summary #todayUsed,
+.today-summary #monthUsed{
+
+    font-size:3.8rem;
+
+    font-weight:800;
+
+    color:#fff;
+
+    margin:20px 0;
+
+}
+
+
+
+@media(max-width:768px){
+
+    .today-summary #todayUsed,
+    .today-summary #monthUsed{
+
+        font-size:2.8rem;
+
+    }
+
+}
+
+/* เงินเดือน */
+
+#monthUsed{
+
+    color:#fff;
+
+    font-weight:800;
+
+    margin:20px 0 12px;
+
+    letter-spacing:-1px;
+
+}
+
+
+
+#monthRemain{
+
+    color:#7dd3fc;
+
+    font-weight:700;
+
+}
+
+
+
+
+
+/* Summary mobile */
+
+@media(max-width:768px){
+
+    #monthUsed{
+
+        font-size:2.8rem;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   MONTH HISTORY LIST
+===================================================== */
+
+
+#monthList{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:16px;
+
+}
+
+
+
+.month-item,
+/* =====================================================
+   HISTORY ITEM LIKE TODAY CARD
+===================================================== */
+
+.history-item {
+
+    position:relative;
+
+    padding:24px;
+
+    border-radius:24px;
+
+
+    background:rgba(255,255,255,.12);
+
+    border:1px solid rgba(255,255,255,.25);
+
+
+    backdrop-filter:blur(22px);
+
+    -webkit-backdrop-filter:blur(22px);
+
+
+    box-shadow:
+
+        0 15px 30px rgba(0,0,0,.15),
+
+        inset 0 1px 1px rgba(255,255,255,.35);
+
+
+    transition:.3s;
+
+    overflow:hidden;
+
+}
+
+
+
+.history-item::before {
+
+    content:"";
+
+    position:absolute;
+
+    width:120px;
+
+    height:120px;
+
+    right:-40px;
+
+    top:-40px;
+
+    border-radius:50%;
+
+
+    background:
+
+    rgba(255,255,255,.12);
+
+
+    filter:blur(30px);
+
+}
+
+
+
+.history-item:hover {
+
+
+    transform:translateY(-5px);
+
+
+    background:
+
+    rgba(255,255,255,.18);
+
+
+}
+
+
+
+/* ฝั่งซ้าย */
+
+.history-left {
+
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+
+}
+
+
+
+.history-left strong {
+
+
+    color:white;
+
+    font-size:20px;
+
+    font-weight:700;
+
+
+}
+
+
+
+.history-left p {
+
+
+    color:
+
+    rgba(255,255,255,.75);
+
+
+    font-size:14px;
+
+
+}
+
+
+
+/* ฝั่งขวา */
+
+.history-right {
+
+
+    margin-top:18px;
+
+
+}
+
+
+
+.history-right h3 {
+
+
+    color:#7dd3fc;
+
+    font-size:28px;
+
+    font-weight:800;
+
+
+}
+
+
+
+.history-right p {
+
+
+    color:
+
+    rgba(255,255,255,.8);
+
+
+}
+
+
+
+
+
+/* mobile */
+
+@media(max-width:600px){
+
+
+    .history-item {
+
+
+        padding:20px;
+
+    }
+
+
+}
+
+
+
+
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+
+.empty-state{
+
+
+    text-align:center;
+
+
+    padding:40px 20px;
+
+
+    color:rgba(255,255,255,.65);
+
+
+    font-size:18px;
+
+
+}
+
+
+
+
+/* =====================================================
+   BUTTON FIX
+===================================================== */
+
+
+#refreshBtn{
+
+
+    background:
+
+    rgba(255,255,255,.15);
+
+
+    color:white;
+
+
+    border:
+
+    1px solid rgba(255,255,255,.25);
+
+
+}
+
+
+
+#refreshBtn:hover{
+
+
+    background:
+
+    rgba(255,255,255,.3);
+
+
+}
+
+
+
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+
+.loading{
+
+
+    text-align:center;
+
+
+    color:white;
+
+
+    padding:30px;
+
+
+    animation:pulse 1.5s infinite;
+
+
+}
+
+
+
+@keyframes pulse{
+
+
+    0%{
+
+        opacity:.4;
+
+    }
+
+
+    50%{
+
+        opacity:1;
+
+    }
+
+
+    100%{
+
+        opacity:.4;
+
+    }
+
+
+}
+
+
+
+
+/* =====================================================
+   MOBILE MONTH
+===================================================== */
+
+
+@media(max-width:600px){
+
+
+    .month-item,
+    .history-item{
+
+
+        flex-direction:column;
+
+
+        align-items:flex-start;
+
+
+        gap:15px;
+
+
+    }
+
+
+
+    .month-right{
+
+
+        text-align:left;
+
+
+        width:100%;
+
+
+    }
+
+
+
+}
+
+/* =====================================
+   HOME SUMMARY
+===================================== */
+
+
+.home-summary{
+
+    min-height:90px;
+
+    padding:18px !important;
+
+    gap:16px;
+
+}
+
+
+
+.home-summary .icon{
+
+    width:55px;
+
+    height:55px;
+
+    font-size:26px;
+
+    border-radius:18px;
+
+}
+
+
+
+.home-summary h3{
+
+    font-size:15px;
+
+    color:rgba(255,255,255,.75);
+
+}
+
+
+
+.home-summary h4{
+
+    font-size:22px;
+
+    font-weight:700;
+
+    color:white;
+
+}
+
+
+@media(max-width:600px){
+
+    .home-summary h4{
+
+        font-size:18px;
+
+    }
+
 }

@@ -1,7 +1,7 @@
 const API_URL =
   window.location.hostname === "localhost"
     ? "http://localhost:3000"
-    : "https://YOUR-BACKEND-URL.com";
+    : "https://thaichuaythaicalculate.onrender.com";
 
 // export async function register(data) {
 //   return fetch(`${API_URL}/auth/register`, {
@@ -51,14 +51,22 @@ export async function getUsages() {
     return await res.json();
 }
 export async function register(data) {
-  const res = await fetch(`${API_URL}/auth/register`,{
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json"
+
+  const res = await fetch(`${API}/auth/register`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
     },
-    body:JSON.stringify(data)
+    body: JSON.stringify(data)
   });
-  return await res.json();
+
+  const result = await res.json();
+
+  if (!res.ok) {
+    throw new Error(result.message);
+  }
+
+  return result;
 }
 export async function createUsage(price) {
 

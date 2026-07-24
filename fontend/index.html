@@ -39,23 +39,23 @@
 
         <!-- ขวา -->
         <div class="right-panel">
-          <div class="summary-card">
+          <div class="summary-card home-summary clickable" onclick="location.href='today.html'">
             <div class="icon">📅</div>
 
             <div>
-              <h3>รัฐช่วยวันนี้<</h3>
+              <h3>รัฐช่วยวันนี้</h3>
 
-              <h2 id="todayUsed">0 / 200 บาท</h2>
+              <h4 id="todayUsed">0 / 200 บาท</h4>
             </div>
           </div>
 
-          <div class="summary-card">
+          <div class="summary-card home-summary clickable" onclick="location.href='month.html'">
             <div class="icon">📆</div>
 
             <div>
               <h3>รัฐช่วยเดือนนี้</h3>
 
-              <h2 id="monthUsed">0 / 1000 บาท</h2>
+              <h4 id="monthUsed">0 / 1000 บาท</h4>
             </div>
           </div>
         </div>
@@ -149,13 +149,28 @@
               try {
                 const data = await createUsage(price);
 
-                console.log(data);
+                // console.log(data);
 
-                alert("บันทึกข้อมูลสำเร็จ");
+                // alert("บันทึกข้อมูลสำเร็จ");
+                Swal.fire({
+                  icon: "success",
+                  title: "บันทึกข้อมูลสำเร็จ",
+                  text: "บันทึกการใช้สิทธิเรียบร้อย",
+                  timer: 1500,
+                  showConfirmButton: false
+                });
+                // await loadDashboard();
+                // window.location.href="index.html"
               } catch (error) {
-                console.error(error);
+                // console.error(error);
+                Swal.fire({
+                  icon:"error",
+                  title:"บันทึกไม่สำเร็จ",
+                  text: "กรุณาลองใหม่อีกครั้ง",
+                  confirmButtonText: "ตกลง"
+                })
 
-                alert("บันทึกไม่สำเร็จ");
+                // alert("บันทึกไม่สำเร็จ");
               }
               await loadDashboard();
             });
@@ -165,5 +180,6 @@
 
     <script type="module" src="./js/auth.js"></script>
     <script type="module" src="./js/dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 </html>

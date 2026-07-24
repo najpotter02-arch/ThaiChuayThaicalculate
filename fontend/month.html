@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>รัฐช่วยเดือนนี้</title>
+
+
+    <link rel="stylesheet" href="style.css">
+
+
+</head>
+
+
+<body>
+
+
+    <!-- Navbar -->
+
+    <div class="top-nav">
+
+        <a href="index.html">
+            ← กลับหน้าหลัก
+        </a>
+
+    </div>
+
+
+
+
+    <div class="container dashboard-page">
+
+
+
+        <!-- Header -->
+
+        <div class="page-title">
+
+
+            <h1>
+                📅 รัฐช่วยเดือนนี้
+            </h1>
+
+
+            <p id="monthDate">
+                เดือนปัจจุบัน
+            </p>
+
+
+        </div>
+
+
+
+
+
+
+        <!-- Summary -->
+
+        <div class="summary-card today-summary">
+
+
+            <div class="summary-header">
+
+
+                <h2>
+                    💰 รัฐช่วยเดือนนี้
+                </h2>
+
+
+                <span id="percentUsed">
+
+                    0%
+
+                </span>
+
+
+            </div>
+
+
+
+
+
+            <h1 id="monthUsed">
+
+                0.00 บาท
+
+            </h1>
+
+
+
+
+
+            <p>
+
+                วงเงินคงเหลือ
+
+
+                <strong id="monthRemain">
+
+                    1000.00 บาท
+
+                </strong>
+
+
+            </p>
+
+
+
+
+
+
+            <div class="progress">
+
+
+                <div
+                    id="progressBar"
+                    class="progress-fill">
+
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+
+
+
+        <!-- History -->
+
+
+        <div class="chart-card">
+
+
+
+            <div class="card-title">
+
+
+                <h2>
+                    🧾 ประวัติการใช้สิทธิเดือนนี้
+                </h2>
+
+
+
+                <button id="refreshBtn">
+
+                    รีเฟรช
+
+                </button>
+
+
+            </div>
+
+
+
+
+
+            <div id="monthList">
+
+
+            </div>
+
+
+
+
+        </div>
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+<script type="module" src="./js/month.js"></script>
+
+
+</body>
+
+
+</html>

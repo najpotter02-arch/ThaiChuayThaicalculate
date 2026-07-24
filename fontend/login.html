@@ -1,54 +1,51 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login</title>
 
   <link rel="stylesheet" href="style.css" />
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body>
 
-  <!-- BACK LINK -->
   <div class="top-nav">
     <a href="index.html">← Home</a>
   </div>
-
 
   <div class="container login-box">
 
     <h1>Welcome Back</h1>
 
-    <p>
-      เข้าสู่ระบบเพื่อใช้งาน
-    </p>
-
+    <p>เข้าสู่ระบบเพื่อใช้งาน</p>
 
     <form id="loginForm">
 
-      <input 
-        id="email" 
-        type="email" 
+      <input
+        id="email"
+        type="email"
         placeholder="Email"
         required
       />
 
-
-      <input 
-        id="password" 
-        type="password" 
+      <input
+        id="password"
+        type="password"
         placeholder="Password"
         required
       />
-
 
       <button type="submit">
         Login
       </button>
 
     </form>
-
 
     <p class="small-text">
       ยังไม่มีบัญชี?
@@ -57,80 +54,86 @@
       </a>
     </p>
 
-
   </div>
-
-
 
   <script type="module">
 
     import { login } from "./js/api.js";
 
+    const form = document.getElementById("loginForm");
 
-    const form =
-      document.getElementById("loginForm");
+    form.addEventListener("submit", async (event) => {
 
+      event.preventDefault();
 
+      const email = document.getElementById("email").value;
 
-    form.addEventListener(
-      "submit",
-      async (event) => {
+      const password = document.getElementById("password").value;
 
-        event.preventDefault();
+      try {
 
+        const res = await login({
+          email,
+          password
+        });
 
-        const email =
-          document.getElementById("email").value;
+        if (res.token) {
 
+          localStorage.setItem("token", res.token);
 
-        const password =
-          document.getElementById("password").value;
+          await Swal.fire({
 
+            icon: "success",
 
+            title: "เข้าสู่ระบบสำเร็จ",
 
-        try {
+            text: "ยินดีต้อนรับกลับ",
 
-          const res =
-            await login({
-              email,
-              password
-            });
+            timer: 1500,
 
+            showConfirmButton: false
 
+          });
 
-          if (res.token) {
+          window.location.href = "index.html";
 
-            localStorage.setItem(
-              "token",
-              res.token
-            );
+        } else {
 
+          Swal.fire({
 
-            window.location.href =
-              "index.html";
+            icon: "error",
 
+            title: "เข้าสู่ระบบไม่สำเร็จ",
 
-          } else {
+            text: res.message || "อีเมลหรือรหัสผ่านไม่ถูกต้อง",
 
-            alert(res.message);
+            confirmButtonText: "ตกลง"
 
-          }
-
-
-        } catch(err) {
-
-          console.error(err);
-
-          alert("เกิดข้อผิดพลาดในการเข้าสู่ระบบ");
+          });
 
         }
 
-      }
-    );
+      } catch (err) {
 
+        console.error(err);
+
+        Swal.fire({
+
+          icon: "error",
+
+          title: "เกิดข้อผิดพลาด",
+
+          text: "ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้",
+
+          confirmButtonText: "ตกลง"
+
+        });
+
+      }
+
+    });
 
   </script>
-
 
 </body>
 </html>

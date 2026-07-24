@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>รัฐช่วยวันนี้</title>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="top-nav">
+        <a href="index.html">← กลับหน้าหลัก</a>
+    </div>
+
+    <div class="container dashboard-page">
+
+        <!-- Header -->
+        <div class="page-title">
+
+            <h1>📅 รัฐช่วยวันนี้</h1>
+
+            <p id="todayDate">
+                วันที่
+            </p>
+
+        </div>
+
+        <!-- Summary -->
+        <div class="summary-card today-summary">
+
+            <div class="summary-header">
+
+                <h2>รัฐช่วยวันนี้</h2>
+
+                <span id="percentUsed">
+                    0%
+                </span>
+
+            </div>
+
+            <h1 id="todayUsed">
+                0.00 บาท
+            </h1>
+
+            <p>
+
+                วงเงินคงเหลือ
+
+                <strong id="todayRemain">
+
+                    200.00 บาท
+
+                </strong>
+
+            </p>
+
+            <div class="progress">
+
+                <div
+                    id="progressBar"
+                    class="progress-fill">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- History -->
+
+        <div class="chart-card">
+
+            <div class="card-title">
+
+                <h2>🧾 ประวัติการใช้สิทธิวันนี้</h2>
+
+                <button id="refreshBtn">
+
+                    รีเฟรช
+
+                </button>
+
+            </div>
+
+            <div id="todayList">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script type="module" src="./js/today.js"></script>
+
+</body>
+
+</html>
